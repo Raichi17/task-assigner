@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Selector</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+        td {
+            height: 50px;
+            width: 50px;
+        }
+        .day {
+            cursor: pointer;
+        }
+        .selected {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+    <script>
+        function toggleSelection(day) {
+            const checkbox = document.getElementById(`checkbox-${day}`);
+            checkbox.checked = !checkbox.checked;
+
+            const cell = document.getElementById(`day-${day}`);
+            if (checkbox.checked) {
+                cell.classList.add("selected");
+            } else {
+                cell.classList.remove("selected");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Select Days in {{ year }}/{{ month }}</h1>
+    <form action="/save" method="POST">
+        <input type="hidden" name="year" value="{{ year }}">
+        <input type="hidden" name="month" value="{{ month }}">
+        <table>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+            {% for i in range(0, days|length, 7) %}
+            <tr>
+                {% for day in days[i:i+7] %}
+                <td id="day-{{ day }}" class="day" onclick="toggleSelection({{ day }})">
+                    {% if day %}
+                        {{ day }}
+                        <input type="checkbox" name="days" value="{{ day }}" id="checkbox-{{ day }}" style="display:none;">
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit">Save Selected Days</button>
+    </form>
+</body>
+</html>

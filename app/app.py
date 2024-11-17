@@ -1,19 +1,35 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, redirect, url_for
 import calendar
 import datetime
-import pandas as pd
-import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    # 今月の情報を取得
-    now = datetime.datetime.now()
-    year, month = now.year, now.month
+    # URL パラメータで年月を取得 (デフォルトは現在の年月)
+    year = request.args.get("year", type=int, default=datetime.datetime.now().year)
+    month = request.args.get("month", type=int, default=datetime.datetime.now().month)
+
+    # カレンダーの計算
     cal = calendar.Calendar()
     days = [(day if day != 0 else None) for day in cal.itermonthdays(year, month)]
-    return render_template("index.html", days=days, year=year, month=month)
+
+    # 前月と翌月を計算
+    prev_month = (month - 1) if month > 1 else 12
+    prev_year = year if month > 1 else year - 1
+    next_month = (month + 1) if month < 12 else 1
+    next_year = year if month < 12 else year + 1
+
+    return render_template(
+        "index.html",
+        days=days,
+        year=year,
+        month=month,
+        prev_year=prev_year,
+        prev_month=prev_month,
+        next_year=next_year,
+        next_month=next_month
+    )
 
 @app.route("/save", methods=["POST"])
 def save():
@@ -21,13 +37,16 @@ def save():
     year = int(request.form.get("year"))
     month = int(request.form.get("month"))
 
-    # データをCSVに保存
+    # CSV ファイルの生成
     data = [{"Year": year, "Month": month, "Day": day} for day in selected_days]
-    df = pd.DataFrame(data)
     file_path = "selected_days.csv"
-    df.to_csv(file_path, index=False)
+    with open(file_path, "w") as f:
+        f.write("Year,Month,Day\n")
+        for row in data:
+            f.write(f"{row['Year']},{row['Month']},{row['Day']}\n")
 
-    return send_file(file_path, as_attachment=True, download_name="selected_days.csv")
+    return redirect(f"/?year={year}&month={month}")
 
 if __name__ == "__main__":
     app.run(debug=True)
+

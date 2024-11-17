@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Select Days in {{ year }}/{{ month }}</h1>
+    <div class="header">
+        <a href="/?year={{ prev_year }}&month={{ prev_month }}" class="nav-button">&larr; Previous</a>
+        <h1>{{ year }}/{{ month }}</h1>
+        <a href="/?year={{ next_year }}&month={{ next_month }}" class="nav-button">Next &rarr;</a>
+    </div>
     <form action="/save" method="POST">
         <input type="hidden" name="year" value="{{ year }}">
         <input type="hidden" name="month" value="{{ month }}">

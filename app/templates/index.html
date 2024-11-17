@@ -1,44 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar Selector</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        td, th {
-            border: 1px solid #ddd;
-            text-align: center;
-            padding: 8px;
-        }
-        td {
-            height: 50px;
-            width: 50px;
-        }
-        .day {
-            cursor: pointer;
-        }
-        .selected {
-            background-color: #4caf50;
-            color: white;
-        }
-    </style>
-    <script>
-        function toggleSelection(day) {
-            const checkbox = document.getElementById(`checkbox-${day}`);
-            checkbox.checked = !checkbox.checked;
-
-            const cell = document.getElementById(`day-${day}`);
-            if (checkbox.checked) {
-                cell.classList.add("selected");
-            } else {
-                cell.classList.remove("selected");
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Select Days in {{ year }}/{{ month }}</h1>
@@ -47,13 +13,13 @@
         <input type="hidden" name="month" value="{{ month }}">
         <table>
             <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
+                <th class="sunday">Sun</th>
+                <th class="weekdays">Mon</th>
+                <th class="weekdays">Tue</th>
+                <th class="weekdays">Wed</th>
+                <th class="weekdays">Thu</th>
+                <th class="weekdays">Fri</th>
+                <th class="saturday">Sat</th>
             </tr>
             {% for i in range(0, days|length, 7) %}
             <tr>
@@ -73,5 +39,6 @@
         <br>
         <button type="submit">Save Selected Days</button>
     </form>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

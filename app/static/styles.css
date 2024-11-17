@@ -1,0 +1,36 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+}
+
+td {
+    height: 50px;
+    width: 50px;
+}
+
+.day {
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.sunday {
+    background-color: #ffcccc; /* 赤 */
+}
+
+.saturday {
+    background-color: #ccccff; /* 青 */
+}
+
+.weekdays {
+    background-color: #d3d3d3; /* 灰 */
+}

@@ -37,6 +37,21 @@ td {
     cursor: pointer;
 }
 
+.green {
+    background-color: #4caf50;
+    color: white;
+}
+
+.yellow {
+    background-color: #ffeb3b;
+    color: black;
+}
+
+.red {
+    background-color: #f44336;
+    color: white;
+}
+
 .selected {
     background-color: #4caf50;
     color: white;

@@ -28,8 +28,8 @@
             {% for i in range(0, days|length, 7) %}
             <tr>
                 {% for day in days[i:i+7] %}
-                <td id="day-{{ day }}" class="day green
-                {% if j == 0 %} sunday {% elif j == 6 %} saturday {% endif %}" onclick="toggleSelection({{ day }})">
+                <td id="day-{{ day }}" class="day green" onclick="toggleSelection({{ day }})">
+                <!-- {% if j == 0 %} sunday {% elif j == 6 %} saturday {% endif %}" onclick="toggleSelection({{ day }})"> -->
                     {% if day %}
                         {{ day }}<br>〇
                         <input type="checkbox" name="days" value="green" id="checkbox-{{ day }}" style="display:none;">

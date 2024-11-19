@@ -16,7 +16,7 @@ function toggleSelection(day) {
     cell.classList.add(nextClass);
 
     // マークを更新
-    cell.textContent = symbols[nextClass];
+    cell.textContent = String(day) +"\n"+ symbols[nextClass];
 
     // チェックボックスの状態を更新 (CSV出力用)
     checkbox.value = nextClass;

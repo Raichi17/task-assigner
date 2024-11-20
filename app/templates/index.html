@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar Selector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='input_calender.css') }}">
 </head>
 <body>
     <div class="header">
@@ -28,15 +29,16 @@
             {% for i in range(0, days|length, 7) %}
             <tr>
                 {% for day in days[i:i+7] %}
-                <td id="day-{{ day }}" class="day green" onclick="toggleSelection({{ day }})">
-                <!-- {% if j == 0 %} sunday {% elif j == 6 %} saturday {% endif %}" onclick="toggleSelection({{ day }})"> -->
                     {% if day %}
-                        {{ day }}<br>〇
-                        <input type="checkbox" name="days" value="green" id="checkbox-{{ day }}" style="display:none;">
+                        <td id="day-{{ day }}" class="day green" onclick="toggleSelection({{ day }})">
+                            {{ day }}<br>〇
+                            <input type="checkbox" name="days" value="green" id="checkbox-{{ day }}" style="display:none;">
+                        </td>
                     {% else %}
-                        &nbsp;
+                        <td id="day-blank" >
+                            &nbsp;
+                        </td>
                     {% endif %}
-                </td>
                 {% endfor %}
             </tr>
             {% endfor %}

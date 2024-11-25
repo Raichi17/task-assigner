@@ -6,6 +6,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    return render_template(
+        "index.html"
+    )
+
+
+@app.route("/input_calender")
+def input_calender():
     # URL パラメータで年月を取得 (デフォルトは現在の年月)
     year = request.args.get("year", type=int, default=datetime.datetime.now().year)
     month = request.args.get("month", type=int, default=datetime.datetime.now().month)
@@ -21,7 +28,7 @@ def index():
     next_year = year if month < 12 else year + 1
 
     return render_template(
-        "index.html",
+        "input_calender.html",
         days=days,
         year=year,
         month=month,
@@ -30,6 +37,8 @@ def index():
         next_year=next_year,
         next_month=next_month
     )
+
+
 
 @app.route("/save", methods=["POST"])
 def save():

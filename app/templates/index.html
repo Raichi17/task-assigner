@@ -3,49 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar Selector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='input_calender.css') }}">
+    <title>Today's Tasks</title>
+
 </head>
 <body>
-    <div class="header">
-        <a href="/?year={{ prev_year }}&month={{ prev_month }}" class="nav-button">&larr; Previous</a>
-        <h1>{{ year }}/{{ month }}</h1>
-        <a href="/?year={{ next_year }}&month={{ next_month }}" class="nav-button">Next &rarr;</a>
-    </div>
-    <form action="/save" method="POST">
-        <input type="hidden" name="year" value="{{ year }}">
-        <input type="hidden" name="month" value="{{ month }}">
-        <table>
-            <tr>
-                <th class="sunday">Sun</th>
-                <th class="weekdays">Mon</th>
-                <th class="weekdays">Tue</th>
-                <th class="weekdays">Wed</th>
-                <th class="weekdays">Thu</th>
-                <th class="weekdays">Fri</th>
-                <th class="saturday">Sat</th>
-            </tr>
-            {% for i in range(0, days|length, 7) %}
-            <tr>
-                {% for day in days[i:i+7] %}
-                    {% if day %}
-                        <td id="day-{{ day }}" class="day green" onclick="toggleSelection({{ day }})">
-                            {{ day }}<br>〇
-                            <input type="checkbox" name="days" value="green" id="checkbox-{{ day }}" style="display:none;">
-                        </td>
-                    {% else %}
-                        <td id="day-blank" >
-                            &nbsp;
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <button type="submit">Save Selected Days</button>
-    </form>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <button onclick="window.location.href='{{ url_for('input_calender') }}'">Go to Next Page</button>
 </body>
 </html>
